@@ -1,6 +1,6 @@
 define(function(){
   function createPolyline(cesiumWidget, options){
-    console.log(options);
+    
     var Cartographic = Cesium.Cartographic;
     var Primitive = Cesium.Primitive;
     var GeometryInstance = Cesium.GeometryInstance;
