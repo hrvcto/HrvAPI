@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cesium Control Pad</title>
+    <meta charset="UTF-8">
+    <style>
+    .connect-status{background-color:#ddd; padding:10px; text-align: center; border:1px solid #ccc;}
+    .connect-status.connected{color:#fff; background-color:green;}
+    .connect-status.error{color:#fff; background-color:red;}
+    .operations{margin:20px;}
+    </style>
+  </head>
+  <body>
+  <div class="connect-status" id="connectStatus">
+    Connecting...
+  </div>
+  <div class="operations" id="operations">
+    <button data-type="createPolyline" disabled>Create Polyline</button>
+  </div>
+  <script src="assets/scripts/jquery-2.1.0.min.js"></script>
+  <script src="SocketServer/WebSocket.js"></script>
+  <script>
+  WebSocketHelper.connect('ws://localhost:8000').on('open', function(e){
+    $('#connectStatus').html('Connected').addClass('connected').removeClass('error');
+    $('#operations button').removeAttr('disabled');
+  }).on('close', function(e){
+    $('#connectStatus').html('Connection closed').removeClass('connected');
+    $('#operations button').attr('disabled', 'disabled');
+  }).on('error', function(e){
+    $('#connectStatus').html('Connection error').addClass('error');
+    $('#operations button').attr('disabled', 'disabled');
+  });
+  $('#operations button').on('click', function(){
+    switch($(this).attr('data-type')){
+      case 'createPolyline':
+      WebSocketHelper.sendMessage('{"name":"createPolyline","args":{"id":"http://sdfsdsdfdsf","positions":[{"longitude":-100.0,"latitude":36.0,"height":0},{"longitude":-92.0,"latitude":35.0,"height":0}],"color":"blue","width":1.0,"outlineColor":"0xFFADDFFF","arrow":"head/tail/none"}}');
+      break;
+    }
+  });
+  </script>
+  </body>
+</html>

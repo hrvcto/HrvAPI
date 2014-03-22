@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cesium</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="Cesium/Widgets/widgets.css">
+  <style>
+  body,html,div{padding:0; margin:0;}
+  .cesium{width:100%; height:100%; position:absolute; top:0; left:0; right:0; bottom:0; background-color:#000;}
+  </style>
+</head>
+<body>
+<div class="cesium" id="cesiumContainer"></div>
+
+<script src="Cesium/Cesium.js"></script>
+<script src="SocketServer/WebSocket.js"></script>
+<script src="CesiumAPI/require.min.js"></script>
+<script>
+  require(['CesiumAPI/api.js'], function(api){
+    var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer');
+
+    WebSocketHelper.connect('ws://localhost:8000').on('open', function(e){
+      console.log('connected');
+    }).on('close', function(e){
+      console.log('closed');
+    }).on('message', function(e, data){
+
+      api.executeCommand(cesiumWidget, data);
+
+    }).on('error', function(e){
+      console.log('error');
+    });
+  });
+</script>
+</body>
+</html>
