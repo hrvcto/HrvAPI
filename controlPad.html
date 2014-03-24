@@ -16,6 +16,9 @@
   </div>
   <div class="operations" id="operations">
     <button data-type="createPolyline" disabled>Create Polyline</button>
+    <hr>
+    <button data-type="flyTo" disabled>Fly To Destination</button>
+    <button data-type="flyToExtent" disabled>Fly To Extent</button>
   </div>
   <script src="assets/scripts/jquery-2.1.0.min.js"></script>
   <script src="SocketServer/WebSocket.js"></script>
@@ -36,7 +39,11 @@
       WebSocketHelper.sendMessage('{"name":"createPolyline","args":{"id":"http://sdfsdsdfdsf","positions":[{"longitude":-100.0,"latitude":36.0,"height":0},{"longitude":-92.0,"latitude":35.0,"height":0}],"color":"blue","width":1.0,"outlineColor":"0xFFADDFFF","arrow":"head/tail/none"}}');
       break;
       //TODO add other apis
-      case '':
+      case 'flyTo':
+      WebSocketHelper.sendMessage('{"name":"flyTo","args":{"position":{"longitude":117.76,"latitude":32.71,"height":1500},"duration":10000}}');
+      break;
+      case 'flyToExtent':
+      WebSocketHelper.sendMessage('{"name":"flyToExtent","args":{"extent":{"west":-90.0,"east":-87.0,"south":38,"north":40},"duration":4000}}');
       break;
     }
   });
