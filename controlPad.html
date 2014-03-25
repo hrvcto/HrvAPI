@@ -17,6 +17,7 @@
   <div class="operations" id="operations">
     <button data-type="createPolyline" disabled>Create Polyline</button>
     <button data-type="addLabel" disabled>Add Label</button>
+    <button data-type="createEllipse" disabled>Create Ellipse</button>
     <hr>
     <button data-type="flyTo" disabled>Fly To</button>
     <button data-type="flyToExtent" disabled>Fly To Extent</button>
@@ -58,6 +59,9 @@
       break;
       case 'clearScene':
       WebSocketHelper.sendMessage('{"name":"clearScene","args":{}}');
+      break;
+      case 'createEllipse':
+      WebSocketHelper.sendMessage('{"name":"createEllipse","args":{"center":{"longitude":90.0, "latitude":40.0},"semiMajorAxis":210000,"semiMinorAxis":100100,"height":10000,"extrudedHeight":200000,"color":"#ff0f0f"}}');
       break;
     }
   });

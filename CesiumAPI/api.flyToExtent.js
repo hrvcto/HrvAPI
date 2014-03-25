@@ -18,8 +18,6 @@ define(function(){
     });
     scene.animations.add(flight);*/
 
-    console.log(extent);
-
     var ellipsoid = Cesium.Ellipsoid.WGS84;
     var west = Cesium.Math.toRadians(extent.west);
     var south = Cesium.Math.toRadians(extent.south);
