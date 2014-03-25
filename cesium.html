@@ -17,7 +17,7 @@
 <script src="CesiumAPI/require.min.js"></script>
 <script>
   require(['CesiumAPI/api.js'], function(api){
-    var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer');
+    var cesiumWidget = new Cesium.Viewer('cesiumContainer');
 
     WebSocketHelper.connect('ws://localhost:8000').on('open', function(e){
       console.log('connected');
