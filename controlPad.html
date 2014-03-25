@@ -16,9 +16,14 @@
   </div>
   <div class="operations" id="operations">
     <button data-type="createPolyline" disabled>Create Polyline</button>
+    <button data-type="addLabel" disabled>Add Label</button>
     <hr>
-    <button data-type="flyTo" disabled>Fly To Destination</button>
+    <button data-type="flyTo" disabled>Fly To</button>
     <button data-type="flyToExtent" disabled>Fly To Extent</button>
+    <hr>
+    <button data-type="clearScene">Clear Scene</button>
+    <hr>
+    <button data-type="showInfo" disabled>Show Info</button>
   </div>
   <script src="assets/scripts/jquery-2.1.0.min.js"></script>
   <script src="SocketServer/WebSocket.js"></script>
@@ -36,7 +41,7 @@
   $('#operations button').on('click', function(){
     switch($(this).attr('data-type')){
       case 'createPolyline':
-      WebSocketHelper.sendMessage('{"name":"createPolyline","args":{"id":"http://sdfsdsdfdsf","positions":[{"longitude":-100.0,"latitude":36.0,"height":0},{"longitude":-92.0,"latitude":35.0,"height":0}],"color":"blue","width":1.0,"outlineColor":"0xFFADDFFF","arrow":"head/tail/none"}}');
+      WebSocketHelper.sendMessage('{"name":"createPolyline","args":{"id":"http://sdfsdsdfdsf","positions":[{"longitude":-100.0,"latitude":36.0,"height":0},{"longitude":-92.0,"latitude":35.0,"height":0}, {"longitude":-85.0,"latitude":26.0,"height":0}],"color":"blue","width":5.0,"outlineColor":"#ffccee","arrow":"tail"}}');
       break;
       //TODO add other apis
       case 'flyTo':
@@ -44,6 +49,15 @@
       break;
       case 'flyToExtent':
       WebSocketHelper.sendMessage('{"name":"flyToExtent","args":{"extent":{"west":-90.0,"east":-87.0,"south":38,"north":40},"duration":4000}}');
+      break;
+      case 'addLabel':
+      WebSocketHelper.sendMessage('{"name":"addLabel","args":{"id":"someLabelID","position":{"longitude":-100.0,"latitude":36.0,"height":0},"text":"Hello Cesium API", "font":{"height":16, "name":"Helvetica"}, "fillColor":"#fff","outlineColor":"#000","outlineWidth":2.0,"scale":1.0}}');
+      break;
+      case 'showInfo':
+      WebSocketHelper.sendMessage('{"name":"showInfo","args":{"url": "http://www.baidu.com"}}');
+      break;
+      case 'clearScene':
+      WebSocketHelper.sendMessage('{"name":"clearScene","args":{}}');
       break;
     }
   });

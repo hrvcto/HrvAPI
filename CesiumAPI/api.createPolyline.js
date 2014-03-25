@@ -26,21 +26,33 @@ define(function(){
 
     var w = options.width ? options.width : 1.0;
 
-    var p = new Primitive({
-      geometryInstances: new GeometryInstance({
-        geometry: new PolylineGeometry({
-          positions: poses,
-          width: w
-        })
-      }),
-      appearance : new PolylineMaterialAppearance({
-        material : Material.fromType('Color', {
-          color: Cesium.Color.fromCssColorString(options.color)
-        })
-      })
-    });
+    var material = null;
+    if(options.arrow === 'head'){
+      material = Cesium.Material.fromType(Cesium.Material.PolylineArrowType, {
+        color: Cesium.Color.fromCssColorString(options.color)
+      });
+    } else if(options.arrow === 'tail'){
+      material = Cesium.Material.fromType(Cesium.Material.PolylineArrowType, {
+        color: Cesium.Color.fromCssColorString(options.color)
+      });
+      poses.reverse();
+    } else {
+      material = Cesium.Material.fromType(Cesium.Material.PolylineOutlineType, {
+        width: w,
+        outlineWidth: 1.0,
+        color: Cesium.Color.fromCssColorString(options.color),
+        outlineColor: Cesium.Color.fromCssColorString(options.outlineColor)
+      });
+    }
 
-    primitives.add(p);
+    var localPolylines = new Cesium.PolylineCollection();
+
+    var localPolyline = localPolylines.add({
+      positions : poses,
+      width : w,
+      material : material
+    });
+    primitives.add(localPolylines);
   }
 
   return createPolyline;
