@@ -5,20 +5,7 @@ define(function(){
     var extent = options.extent;
     var duration = options.duration || 3000;
 
-    /*var west = Cesium.Math.toRadians(extent.west);
-    var south = Cesium.Math.toRadians(extent.south);
-    var east = Cesium.Math.toRadians(extent.east);
-    var north = Cesium.Math.toRadians(extent.north);
-
-    var extent = new Cesium.Extent(west, south, east, north);
-
-    var flight = Cesium.CameraFlightPath.createAnimationExtent(scene, {
-      destination : extent,
-      duration: duration
-    });
-    scene.animations.add(flight);*/
-
-    var ellipsoid = Cesium.Ellipsoid.WGS84;
+    var ellipsoid = cesiumWidget.centralBody.ellipsoid;
     var west = Cesium.Math.toRadians(extent.west);
     var south = Cesium.Math.toRadians(extent.south);
     var east = Cesium.Math.toRadians(extent.east);

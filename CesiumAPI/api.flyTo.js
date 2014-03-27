@@ -5,7 +5,7 @@ define(function(){
     var scene = cesiumWidget.scene;
 
     var position = options.position;
-    var ellipsoid = Cesium.Ellipsoid.WGS84;
+    var ellipsoid = cesiumWidget.centralBody.ellipsoid;
 
     var destination = Cesium.Cartographic.fromDegrees(
       position.longitude, position.latitude, position.height);

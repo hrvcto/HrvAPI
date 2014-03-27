@@ -6,32 +6,6 @@ define(function(){
 
     var primitives = scene.primitives;
     var ellipsoid = centralBody.ellipsoid;
-
-    /*var ellipseGeometry = new Cesium.EllipseGeometry({
-        center : ellipsoid.cartographicToCartesian(Cesium.Cartographic.fromDegrees(options.center.lonitude, options.center.latitude)),
-        semiMinorAxis : options.semiMajorAxis,
-        semiMajorAxis : options.semiMajorAxis,
-        height: options.height,
-        extrudedHeight : options.extrudedHeight,
-        vertexFormat : Cesium.PerInstanceColorAppearance.VERTEX_FORMAT
-    });
-
-    var ellipseInstance = new Cesium.GeometryInstance({
-        geometry : ellipseGeometry,
-        attributes : {
-            color : Cesium.ColorGeometryInstanceAttribute.fromColor(Cesium.Color.fromCssColorString(options.color))
-        }
-    });
-
-    primitives.add(new Cesium.Primitive({
-        geometryInstances : [ellipseInstance],
-        appearance : new Cesium.PerInstanceColorAppearance({
-            translucent : false,
-            closed : true
-        })
-    }));
-
-    console.log(options);*/
     
     // Blue extruded ellipse with height
     ellipseGeometry = new Cesium.EllipseGeometry({
@@ -52,13 +26,18 @@ define(function(){
     });
     
     // Add ellipse instances to primitives
-    primitives.add(new Cesium.Primitive({
+    var p = primitives.add(new Cesium.Primitive({
         geometryInstances : [blueEllipseInstance],
         appearance : new Cesium.PerInstanceColorAppearance({
             translucent : false,
             closed : true
         })
     }));
+
+    require(['/CesiumAPI/api.idManager.js'], function(){
+      var id = options.id || window.idManager.nextID();
+      window.idManager.addObject(id, p, scene.primitives);
+    });
   }
 
   return createEllipse;

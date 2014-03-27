@@ -15,14 +15,25 @@
     Connecting...
   </div>
   <div class="operations" id="operations">
-    <button data-type="createPolyline" disabled>Create Polyline</button>
+    <button data-type="setModeTo2D" disabled>SetModeTo2D</button>
+    <button data-type="setModeTo3D" disabled>SetModeTo3D</button>
+    <button data-type="setModeToColumbus" disabled>SetModeToColumbus</button>
+    <hr>
     <button data-type="addLabel" disabled>Add Label</button>
+    <button data-type="addBillboard" disabled>Add Billboard</button>
+    <hr>
+    <button data-type="createPolyline" disabled>Create Polyline</button>
+    <button data-type="createPolygon" disabled>Create Polygon</button>
     <button data-type="createEllipse" disabled>Create Ellipse</button>
+    <button data-type="createEllipsoid" disabled>Create Ellipsoid</button>
     <hr>
     <button data-type="flyTo" disabled>Fly To</button>
     <button data-type="flyToExtent" disabled>Fly To Extent</button>
+    <button data-type="flyToObject" disabled>Fly To Object(To the billboard)</button>
     <hr>
     <button data-type="clearScene">Clear Scene</button>
+    <button data-type="showObject" disabled>Hide Polygon</button>
+    <button data-type="deleteObject">Delete Object(Please create polygon first)</button>
     <hr>
     <button data-type="showInfo" disabled>Show Info</button>
   </div>
@@ -41,6 +52,33 @@
   });
   $('#operations button').on('click', function(){
     switch($(this).attr('data-type')){
+      case 'showObject':
+      WebSocketHelper.sendMessage('{"name":"showObject", "args":{"id": "p1"}}');
+      break;
+      case 'flyToObject':
+      WebSocketHelper.sendMessage('{"name":"flyToObject", "args":{"id": "someBillboard"}}');
+      break;
+      case 'deleteObject':
+      WebSocketHelper.sendMessage('{"name":"deleteObject", "args":{"id": "p1"}}');
+      break;
+      case 'createPolygon':
+      WebSocketHelper.sendMessage('{"name":"createPolygon", "args":{"id":"p1", "positions":[{"longitude":-115.0, "latitude": 37.0}, {"longitude":-115.0, "latitude": 32.0}, {"longitude":-107.0, "latitude": 33.0}],"height":1000,"extrudedHeight":200000.0,"color":"blue","outlineColor":"yellow"}}');
+      break;
+      case 'addBillboard':
+      WebSocketHelper.sendMessage('{"name":"addBillboard", "args":{"id": "someBillboard","position":{"longitude":-115.0, "latitude": 37.0, "height":100000},"url":"/assets/images/googleLogo.png","tips":"some billboard","scale":0.2}}');
+      break;
+      case 'createEllipsoid':
+      WebSocketHelper.sendMessage('{"name":"createEllipsoid", "args":{"id": "id1", "center":{"longitude":-115.0, "latitude": 37.0, "height":810000},"semiMajorAxis": 900000, "semiMinorAxis": 610000, "extrudedHeight": 600000, "color": "green", "outlineColor": "yellow"}}');
+      break;
+      case 'setModeTo2D':
+      WebSocketHelper.sendMessage('{"name":"setSceneMode","args":{"mode": "2D"}}');
+      break;
+      case 'setModeTo3D':
+      WebSocketHelper.sendMessage('{"name":"setSceneMode","args":{"mode": "3D"}}');
+      break;
+      case 'setModeToColumbus':
+      WebSocketHelper.sendMessage('{"name":"setSceneMode","args":{"mode": "columbus"}}');
+      break;
       case 'createPolyline':
       WebSocketHelper.sendMessage('{"name":"createPolyline","args":{"id":"http://sdfsdsdfdsf","positions":[{"longitude":-100.0,"latitude":36.0,"height":0},{"longitude":-92.0,"latitude":35.0,"height":0}, {"longitude":-85.0,"latitude":26.0,"height":0}],"color":"blue","width":5.0,"outlineColor":"#ffccee","arrow":"tail"}}');
       break;

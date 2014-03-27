@@ -53,6 +53,11 @@ define(function(){
       material : material
     });
     primitives.add(localPolylines);
+
+    require(['/CesiumAPI/api.idManager.js'], function(){
+      var id = options.id || window.idManager.nextID();
+      window.idManager.addObject(id, localPolylines, scene.primitives);
+    });
   }
 
   return createPolyline;
