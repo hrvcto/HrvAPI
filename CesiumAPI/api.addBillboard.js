@@ -23,7 +23,7 @@ define(function(){
 
       scene.primitives.add(billboards);
 
-      require(['/CesiumAPI/api.idManager.js'], function(){
+      require(['CesiumAPI/api.idManager.js'], function(){
         var id = options.id || window.idManager.nextID();
         window.idManager.addObject(id, billboards, scene.primitives);
       });

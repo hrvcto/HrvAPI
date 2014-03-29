@@ -61,7 +61,7 @@ define(function(){
       ps.push(pp);
     }
 
-    require(['/CesiumAPI/api.idManager.js'], function(){
+    require(['CesiumAPI/api.idManager.js'], function(){
       var id = options.id || window.idManager.nextID();
       window.idManager.addObject(id, ps, scene.primitives);
     });

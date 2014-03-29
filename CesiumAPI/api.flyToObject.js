@@ -9,7 +9,7 @@ define(function(){
     var id = options.id;
 
     if(id){
-      require(['/CesiumAPI/api.idManager.js'], function(){
+      require(['CesiumAPI/api.idManager.js'], function(){
         var ary = window.idManager.getByID(id);
         if(ary.length > 0){
           var obj = ary[0];

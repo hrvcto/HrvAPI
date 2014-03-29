@@ -4,7 +4,7 @@ define(function(){
 
     var id = options.id;
     if(id){
-      require(['/CesiumAPI/api.idManager.js'], function(){
+      require(['CesiumAPI/api.idManager.js'], function(){
         var ary = window.idManager.getByID(id);
         for(var i = 0; i < ary.length; i ++){
           scene.primitives.remove(ary[i]);
