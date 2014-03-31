@@ -36,6 +36,7 @@
     <button data-type="deleteObject">Delete Object(Please create polygon first)</button>
     <hr>
     <button data-type="showInfo" disabled>Show Info</button>
+    <button data-type="showScript" disabled>Show Script</button>
   </div>
   <script src="assets/scripts/jquery-2.1.0.min.js"></script>
   <script src="SocketServer/WebSocket.js"></script>
@@ -54,6 +55,9 @@
     switch($(this).attr('data-type')){
       case 'showObject':
       WebSocketHelper.sendMessage('{"name":"showObject", "args":{"id": "p1"}}');
+      break;
+      case 'showScript':
+      WebSocketHelper.sendMessage('{"name":"showScript", "args":{"script": "Some Script","position":{"width":200,"height":200,"x":100,"y":40}, "fontSize":14, "fontColor": "blue", "backgroundColor": "white"}}');
       break;
       case 'flyToObject':
       WebSocketHelper.sendMessage('{"name":"flyToObject", "args":{"id": "someBillboard"}}');

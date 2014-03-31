@@ -17,10 +17,10 @@
 <script src="CesiumAPI/require.min.js"></script>
 <script>
   require(['CesiumAPI/api.js'], function(api){
-    //var cesiumViewer = new Cesium.Viewer('cesiumContainer');
+    var cesiumViewer = new Cesium.Viewer('cesiumContainer');
 
     
-
+  /*
    var cesiumViewer = new Cesium.Viewer('cesiumContainer', {
         baseLayerPicker : false,
         //timeline : false,
@@ -29,7 +29,7 @@
             maximumLevel:'20',
             credit:''
         }),
-    });
+    });*/
 
   WebSocketHelper.connect('ws://'+window.location.hostname+':8000').on('open', function(e){
       console.log('connected');
