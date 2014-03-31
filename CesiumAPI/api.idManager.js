@@ -10,7 +10,7 @@ define(function(){
     addObject: function(id, object, primitives){
       var that = this;
 
-      if(that.idCache.indexOf(id) >= 0){
+      if(primitives && that.idCache.indexOf(id) >= 0){
         var obj = that.objMap[id];
         if(Array.isArray(obj)){
           for(var i = 0; i < obj.length; i ++){

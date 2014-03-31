@@ -18,9 +18,10 @@
 <script>
   require(['CesiumAPI/api.js'], function(api){
     var cesiumViewer = new Cesium.Viewer('cesiumContainer');
-
+    cesiumViewer.extend(Cesium.viewerDragDropMixin, { clearOnDrop : false});
+    //cesiumViewer.extend(Cesium.viewerDynamicObjectMixin);
     
-  /*
+    /*
    var cesiumViewer = new Cesium.Viewer('cesiumContainer', {
         baseLayerPicker : false,
         //timeline : false,

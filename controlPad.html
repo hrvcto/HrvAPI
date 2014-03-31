@@ -37,6 +37,9 @@
     <hr>
     <button data-type="showInfo" disabled>Show Info</button>
     <button data-type="showScript" disabled>Show Script</button>
+    <hr>
+    <button data-type="loadCzml" disabled>Load Czml</button>
+    <button data-type="removeCzml" disabled>Remove Czml</button>
   </div>
   <script src="assets/scripts/jquery-2.1.0.min.js"></script>
   <script src="SocketServer/WebSocket.js"></script>
@@ -105,6 +108,13 @@
       case 'createEllipse':
       WebSocketHelper.sendMessage('{"name":"createEllipse","args":{"center":{"longitude":90.0, "latitude":40.0},"semiMajorAxis":210000,"semiMinorAxis":100100,"height":10000,"extrudedHeight":200000,"color":"#ff0f0f"}}');
       break;
+      case 'loadCzml':
+      WebSocketHelper.sendMessage('{"name":"loadCzml","args":["czml/simple.czml","czml/LotsOfSensors.czml"]}');
+      break;
+      case 'removeCzml':
+      WebSocketHelper.sendMessage('{"name":"removeCzml", "args":{"id": "czml/simple.czml"}}');
+      break;
+
     }
   });
   </script>
