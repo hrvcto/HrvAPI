@@ -6,11 +6,12 @@ define(function(){
     var fontSize = options.fontSize || 12;
     var fontColor = options.fontColor || 'black';
     var backgroundColor = options.backgroundColor || 'white';
+    var alignment = options.alignment || 'left';
 
     var style = [
       '.alert-script{position:absolute; padding:10px 25px 10px 10px;}',
-      '.alert-script .close{width:20px; height:20px; display:block; background:url(assets/images/windowClose.png) no-repeat; background-size:20px auto; opacity:0.7;',
-      'position:absolute; right:0px; top:0px; text-indent:-9999em;}',
+      '.alert-script .close{display:block; width:20px; height:20px; display:block; background:url(assets/images/windowClose.png) no-repeat; background-size:20px auto; opacity:0.7;',
+      'position:absolute; right:0px; top:0px; text-indent:9999em;}',
       '.alert-script .close:hover{opacity:0.8;}'];
 
     var closeButton = [
@@ -30,6 +31,7 @@ define(function(){
     div.style.backgroundColor = backgroundColor;
     div.style.color = fontColor;
     div.style.fontSize = fontSize + 'px';
+    div.style.textAlign = alignment;
     div.innerHTML = closeButton.join('') + '<div>' + options.text+ '</div>';
 
     var cssFragment = document.createElement('style');
