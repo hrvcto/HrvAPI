@@ -109,10 +109,10 @@
       WebSocketHelper.sendMessage('{"name":"createEllipse","args":{"center":{"longitude":90.0, "latitude":40.0},"semiMajorAxis":210000,"semiMinorAxis":100100,"height":10000,"extrudedHeight":200000,"color":"#ff0f0f"}}');
       break;
       case 'loadCzml':
-      WebSocketHelper.sendMessage('{"name":"loadCzml","args":["czml/simple.czml","czml/LotsOfSensors.czml"]}');
+      WebSocketHelper.sendMessage('{"name":"loadCzml","args":[{"id":"07d2340e-09b9-4a25-8aca-6c09d2b6d833","url":"czml/simple.czml"},{"id":"a9c3a5f5-9e89-447c-91bf-94000f8794fb","url":"czml/LotsOfSensors.czml"}]}');
       break;
       case 'removeCzml':
-      WebSocketHelper.sendMessage('{"name":"removeCzml", "args":{"id": "czml/simple.czml"}}');
+      WebSocketHelper.sendMessage('{"name":"removeCzml", "args":{"id":"07d2340e-09b9-4a25-8aca-6c09d2b6d833"}}');
       break;
 
     }
