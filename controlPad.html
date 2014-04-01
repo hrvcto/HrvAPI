@@ -36,7 +36,7 @@
     <button data-type="deleteObject">Delete Object(Please create polygon first)</button>
     <hr>
     <button data-type="showInfo" disabled>Show Info</button>
-    <button data-type="showScript" disabled>Show Script</button>
+    <button data-type="showSubtitle" disabled>Show Subtitle</button>
     <hr>
     <button data-type="loadCzml" disabled>Load Czml</button>
     <button data-type="removeCzml" disabled>Remove Czml</button>
@@ -59,8 +59,8 @@
       case 'showObject':
       WebSocketHelper.sendMessage('{"name":"showObject", "args":{"id": "p1"}}');
       break;
-      case 'showScript':
-      WebSocketHelper.sendMessage('{"name":"showScript", "args":{"script": "Some Script","position":{"width":200,"height":200,"x":100,"y":40}, "fontSize":14, "fontColor": "blue", "backgroundColor": "white"}}');
+      case 'showSubtitle':
+      WebSocketHelper.sendMessage('{"name":"showSubtitle", "args":{"text":"Some  Text","position":{"width":200,"height":200,"x":100,"y":40},"fontSize":14, "fontColor": "blue", "backgroundColor": "rgba(255,0,0,0.3)"}}');
       break;
       case 'flyToObject':
       WebSocketHelper.sendMessage('{"name":"flyToObject", "args":{"id": "someBillboard"}}');

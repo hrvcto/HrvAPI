@@ -1,6 +1,6 @@
 define(function(){
 
-  function showScript(cesiumWidget, options){
+  function showSubtitle(cesiumWidget, options){
 
     var position = options.position || {width: 300, height:200, x:100, y:50};
     var fontSize = options.fontSize || 12;
@@ -30,7 +30,7 @@ define(function(){
     div.style.backgroundColor = backgroundColor;
     div.style.color = fontColor;
     div.style.fontSize = fontSize + 'px';
-    div.innerHTML = closeButton.join('') + '<div>' + options.script + '</div>';
+    div.innerHTML = closeButton.join('') + '<div>' + options.text+ '</div>';
 
     var cssFragment = document.createElement('style');
     cssFragment.type = 'text/css';
@@ -45,5 +45,5 @@ define(function(){
     }, false);
   }
 
-  return showScript;
+  return showSubtitle;
 });
