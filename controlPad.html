@@ -37,6 +37,8 @@
     <hr>
     <button data-type="showInfo" disabled>Show Info</button>
     <button data-type="showSubtitle" disabled>Show Subtitle</button>
+    <button data-type="showPosition" disabled>Show Position</button>
+    <button data-type="hidePosition" disabled>Hide Position</button>
     <hr>
     <button data-type="loadCzml" disabled>Load Czml</button>
     <button data-type="removeCzml" disabled>Remove Czml</button>
@@ -114,7 +116,13 @@
       case 'removeCzml':
       WebSocketHelper.sendMessage('{"name":"removeCzml", "args":{"id":"07d2340e-09b9-4a25-8aca-6c09d2b6d833"}}');
       break;
-
+      case 'showPosition':
+      WebSocketHelper.sendMessage('{"name":"showPosition", "args":{"show": true, "type": "degree"}}');
+      // type -> decimal
+      break;
+      case 'hidePosition':
+      WebSocketHelper.sendMessage('{"name":"showPosition", "args":{"show": false}}');
+      break;
     }
   });
   </script>
