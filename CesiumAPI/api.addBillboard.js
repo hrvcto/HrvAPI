@@ -1,10 +1,15 @@
-define(function(){
+define(['./api.utils.js'], function(utils){
 
   function addBillboard(cesiumWidget, options){
     var scene = cesiumWidget.scene;
     var ellipsoid = cesiumWidget.centralBody.ellipsoid;
     
     var position = options.position;
+
+    if(typeof position.longitude == 'string'){
+      position.longitude = utils.ConvertDMStoDD(position.longitude);
+      position.latitude = utils.ConvertDMStoDD(position.latitude);
+    }
 
     var image = new Image();
     image.onload = function() {

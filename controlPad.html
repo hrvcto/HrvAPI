@@ -74,7 +74,7 @@
       WebSocketHelper.sendMessage('{"name":"createPolygon", "args":{"id":"p1", "positions":[{"longitude":-115.0, "latitude": 37.0}, {"longitude":-115.0, "latitude": 32.0}, {"longitude":-107.0, "latitude": 33.0}],"height":1000,"extrudedHeight":200000.0,"color":"blue","outlineColor":"yellow"}}');
       break;
       case 'addBillboard':
-      WebSocketHelper.sendMessage('{"name":"addBillboard","args":{"id":"someBillboard","position":{"longitude":-115.0,"latitude":37.0,"height":100000},"url":"'+window.location.origin+'/static/assets/images/googleLogo.png","tips":"some billboard","scale":0.2}}');
+      WebSocketHelper.sendMessage('{"name":"addBillboard","args":{"id":"someBillboard","position":{"longitude":"-115 0\' 0\\"","latitude":"37 0\' 0\\"","height":100000},"url":"'+window.location.origin+'/static/assets/images/googleLogo.png","tips":"some billboard","scale":0.2}}');
       break;
       case 'createEllipsoid':
       WebSocketHelper.sendMessage('{"name":"createEllipsoid", "args":{"id": "id1", "center":{"longitude":-115.0, "latitude": 37.0, "height":810000},"semiMajorAxis": 900000, "semiMinorAxis": 610000, "extrudedHeight": 600000, "color": "green", "outlineColor": "yellow"}}');
