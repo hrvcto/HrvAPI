@@ -27,8 +27,11 @@ define(function(){
         s = window.parseFloat(ss);
       }
       
+      var zf = 1;
       var absd = Math.abs(d);
-      var zf = absd / d;
+      if(dms.indexOf('-') == 0){
+        zf = -1;
+      }
       return (absd + m / 60 + s / 3600).toFixed(8) * zf;
     } else if(ary.length === 1) {
       return window.parseInt(ary[0]).toFixed(8);
