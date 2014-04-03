@@ -10,13 +10,26 @@ define(function(){
   };
 
   utils.ConvertDMStoDD = function(dms){
-    var ary = dms.split(' ');
-    if(ary && ary.length === 3){
+    var ary = dms.split('.');
+    if(ary && ary.length === 2){
       var d = window.parseInt(ary[0], 10);
-      var m = window.parseInt(ary[1], 10);
-      var s = window.parseFloat(ary[2]);
-
-      return (d + m/60 + s/3600).toFixed(8);
+      var ms = ary[1];
+      var m, s;
+      if(ms.length <= 2){
+        m = window.parseInt(ms);
+        s = 0;
+      } else {
+        m = window.parseInt(ms.substring(0,2));
+        var ss = ms.substring(2);
+        if(ss.length > 2){
+          ss = ss.substring(0,2) + '.' + ss.substring(2);
+        }
+        s = window.parseFloat(ss);
+      }
+      
+      return (d + m / 60 + s / 3600).toFixed(8);
+    } else if(ary.length === 1) {
+      return window.parseInt(ary[0]).toFixed(8);
     } else {
       return Number.NaN;
     }
