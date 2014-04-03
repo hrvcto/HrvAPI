@@ -27,7 +27,9 @@ define(function(){
         s = window.parseFloat(ss);
       }
       
-      return (d + m / 60 + s / 3600).toFixed(8);
+      var absd = Math.abs(d);
+      var zf = absd / d;
+      return (absd + m / 60 + s / 3600).toFixed(8) * zf;
     } else if(ary.length === 1) {
       return window.parseInt(ary[0]).toFixed(8);
     } else {
