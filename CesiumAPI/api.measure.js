@@ -38,6 +38,30 @@ define(function(){
     return newOptions;
   }
 
+  function readableNum(d){
+    var dd = Math.floor(d);
+    var dx = d - dd;
+    var retAry = [];
+    
+    while(dd > 0){
+      retAry.push(dd % 1000 + '');
+      dd = (dd - dd % 1000) / 1000;
+    }
+
+    return retAry.reverse().join(',') + (dx.toFixed(2) + '').substring(1,4);
+  }
+
+  function calDistance(x1,y1,x2,y2,unit){
+    var d = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2,2));
+    if(unit == 'm'){
+      return readableNum(d) + 'm';
+    } else if(unit == 'km') {
+      return readableNum(d / 1000) + 'km';
+    } else {
+      return d;
+    }
+  }
+
   utils.clone = clone;
   utils.copyOptions = copyOptions;
   utils.fillOptions = fillOptions;
@@ -258,9 +282,10 @@ define(function(){
               show: true,
               font: '16px Helvetica'
             });
-            var dxdy = Math.sqrt(Math.pow(cartesian.x - p.x, 2) + Math.pow(cartesian.y - p.y, 2));
+            // var dxdy = Math.sqrt(Math.pow(cartesian.x - p.x, 2) + Math.pow(cartesian.y - p.y, 2));
 
-            theLabel.setText(dxdy.toFixed(2) + ' m');
+            // theLabel.setText(dxdy.toFixed(2) + ' m');
+            theLabel.setText(calDistance(cartesian.x, cartesian.y, p.x, p.y, options.unit));
             theLabel.setPosition(cartesian);
 
           } else {
@@ -284,9 +309,10 @@ define(function(){
           if(cartesian){
             var p1 = positions[positions.length - 1];
 
-            var dxdy = Math.sqrt(Math.pow(cartesian.x - p1.x, 2) + Math.pow(cartesian.y - p1.y, 2));
+            // var dxdy = Math.sqrt(Math.pow(cartesian.x - p1.x, 2) + Math.pow(cartesian.y - p1.y, 2));
 
-            label.setText(dxdy.toFixed(2) + ' m');
+            // label.setText(dxdy.toFixed(2) + ' m');
+            label.setText(calDistance(cartesian.x, cartesian.y, p1.x, p1.y, options.unit));
             label.setPosition(cartesian);
 
             cartesian.y += (1 + Math.random());
