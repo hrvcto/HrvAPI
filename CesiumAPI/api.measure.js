@@ -325,7 +325,7 @@ define(function(){
     button.innerHTML = '清除测距';
     button.style.position = 'absolute';
     button.style.top = '0px';
-    button.style.right = '0px';
+    button.style.left = '0px';
     button.id = 'cancel-measure-button';
     button.onclick = function(){
       cesiumWidget._container.parentNode.removeChild(button);
