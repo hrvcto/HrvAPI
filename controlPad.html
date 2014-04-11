@@ -42,6 +42,8 @@
     <hr>
     <button data-type="loadCzml" disabled>Load Czml</button>
     <button data-type="removeCzml" disabled>Remove Czml</button>
+    <hr>
+    <button data-type="measureDistance" disabled>Measure Distance</button>
   </div>
   <script src="assets/scripts/jquery-2.1.0.min.js"></script>
   <script src="SocketServer/WebSocket.js"></script>
@@ -122,6 +124,9 @@
       break;
       case 'hidePosition':
       WebSocketHelper.sendMessage('{"name":"showPosition", "args":{"show": false}}');
+      break;
+      case 'measureDistance':
+      WebSocketHelper.sendMessage('{"name":"measure", "args":{}}');
       break;
     }
   });
