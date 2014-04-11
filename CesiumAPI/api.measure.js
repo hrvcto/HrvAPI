@@ -44,7 +44,7 @@ define(function(){
 
 
   var material = Cesium.Material.fromType(Cesium.Material.ColorType);
-  material.uniforms.color = new Cesium.Color(1.0, 1.0, 0.0, 0.5);
+  material.uniforms.color = new Cesium.Color(1.0, 0.0, 0.0, 0.5);
 
   var defaultShapeOptions = {
     ellipsoid: Cesium.Ellipsoid.WGS84,
@@ -213,17 +213,19 @@ define(function(){
   }
 
   function startMeasure(options){
-    if(isMeasuring){
-      return;
+    if(measureEndCallback){
+      measureEndCallback();
     }
 
     measureEndCallback = function(){
-      mouseHandler.destroy();
+      if(!mouseHandler.isDestroyed()){
+        mouseHandler.destroy();
+      }
+
       primitives.remove(poly);
       poly = null;
       primitives.remove(labels);
       labels = null;
-      firstPosition = null;
     };
 
     var poly = new PolylinePrimitive(options);
@@ -236,15 +238,40 @@ define(function(){
     poly.asynchronous = false;
     primitives.add(poly);
 
-    var firstPosition;
+    var positions = [];
 
     var mouseHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     mouseHandler.setInputAction(function(data){
       if(data.position != null){
         // 从鼠标位置转换成笛卡尔坐标
         var cartesian = scene.camera.controller.pickEllipsoid(data.position, ellipsoid);
-        if(cartesian && !firstPosition){
-          firstPosition = cartesian;
+        if(cartesian){
+          positions.push(cartesian);
+
+          if(positions.length >= 2){
+            poly.setPositions(positions);
+
+            var p = positions[positions.length - 2];
+
+            var theLabel = labels.add({
+              fillColor: Cesium.Color.fromCssColorString('#fff'),
+              show: true,
+              font: '16px Helvetica'
+            });
+            var dxdy = Math.sqrt(Math.pow(cartesian.x - p.x, 2) + Math.pow(cartesian.y - p.y, 2));
+
+            theLabel.setText(dxdy.toFixed(2) + ' m');
+            theLabel.setPosition(cartesian);
+
+          } else {
+            var theLabel = labels.add({
+              fillColor: Cesium.Color.fromCssColorString('#fff'),
+              show: true,
+              font: '16px Helvetica'
+            });
+            theLabel.setText('起点');
+            theLabel.setPosition(cartesian);
+          }
         }
       }
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
@@ -252,34 +279,30 @@ define(function(){
     mouseHandler.setInputAction(function(data){
       var position = data.endPosition;
       if(position != null){
-        var cartesian = scene.camera.controller.pickEllipsoid(position, ellipsoid);
-        if(cartesian){
-          cartesian.y += (1 + Math.random());
-          if(firstPosition){
-            poly.setPositions([firstPosition, cartesian]);
-            
-            var dxdy = Math.sqrt(Math.pow(cartesian.x - firstPosition.x, 2) + Math.pow(cartesian.y - firstPosition.y, 2));
+        if(positions.length > 0){
+          var cartesian = scene.camera.controller.pickEllipsoid(position, ellipsoid);
+          if(cartesian){
+            var p1 = positions[positions.length - 1];
+
+            var dxdy = Math.sqrt(Math.pow(cartesian.x - p1.x, 2) + Math.pow(cartesian.y - p1.y, 2));
 
             label.setText(dxdy.toFixed(2) + ' m');
             label.setPosition(cartesian);
+
+            cartesian.y += (1 + Math.random());
+            if(positions.length >= 1){
+              poly.setPositions(positions.concat(cartesian));
+            }
           }
         }
       }
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
     mouseHandler.setInputAction(function(data){
-      var position = data.position;
-      if(position != null){
-        var cartesian = scene.camera.controller.pickEllipsoid(position, ellipsoid);
-        if(cartesian){
-          var dxdy = Math.sqrt(Math.pow(cartesian.x - firstPosition.x, 2) + Math.pow(cartesian.y - firstPosition.y, 2));
-          if(typeof options.callback == 'function'){
-            options.callback(dxdy);
-          }
-        }
-      }
+      labels.remove(label);
+      labels.remove(labels._labels[labels._labels.length - 1]);
+      mouseHandler.destroy();
 
-      stopMeasure();
     }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
   }
 
@@ -293,8 +316,22 @@ define(function(){
   function measure(cesiumWidget, options){
     scene = cesiumWidget.scene;
     primitives = scene.primitives;
-
+    createStopMeasureBtn(cesiumWidget);
     startMeasure(options);
+  }
+
+  function createStopMeasureBtn(cesiumWidget){
+    var button = document.createElement('button');
+    button.innerHTML = '清除测距';
+    button.style.position = 'absolute';
+    button.style.top = '0px';
+    button.style.right = '0px';
+    button.id = 'cancel-measure-button';
+    button.onclick = function(){
+      cesiumWidget._container.parentNode.removeChild(button);
+      stopMeasure();
+    };
+    cesiumWidget._container.parentNode.appendChild(button);
   }
 
   return measure;
