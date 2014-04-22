@@ -36,6 +36,7 @@
     <button data-type="deleteObject">Delete Object(Please create polygon first)</button>
     <hr>
     <button data-type="showInfo" disabled>Show Info</button>
+    <button data-type="playVideo" disabled>Play Video</button>
     <button data-type="showSubtitle" disabled>Show Subtitle</button>
     <button data-type="showPosition" disabled>Show Position</button>
     <button data-type="hidePosition" disabled>Hide Position</button>
@@ -105,6 +106,9 @@
       break;
       case 'showInfo':
       WebSocketHelper.sendMessage('{"name":"showInfo","args":{"url": "http://www.baidu.com"}}');
+      break;
+      case 'playVideo':
+      WebSocketHelper.sendMessage('{"name":"playVideo","args":{"videoURL": "http://www.w3school.com.cn/i/movie.mp4"}}');
       break;
       case 'clearScene':
       WebSocketHelper.sendMessage('{"name":"clearScene","args":{}}');
